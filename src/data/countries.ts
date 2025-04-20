@@ -3,10 +3,19 @@ export interface Country {
   name: string;
   timezone: string;
   flag: string;
-  remoteRank: number; // Higher number = higher rank for remote work
+  remoteRank: number;
+  displayName?: string; // Add display name for custom naming
 }
 
-// Top countries for remote work based on various reports
+export type ClockDesign = "digital-classic" | "digital-modern" | "digital-minimal";
+
+export const clockDesigns = [
+  { id: "digital-classic", name: "Classic Digital" },
+  { id: "digital-modern", name: "Modern Digital" },
+  { id: "digital-minimal", name: "Minimal Digital" },
+];
+
+// Keep existing countries array
 export const countries: Country[] = [
   {
     id: "usa",
@@ -92,17 +101,6 @@ export const countries: Country[] = [
     flag: "🇪🇪",
     remoteRank: 8
   }
-];
-
-export type ClockDesign = "classic" | "modern" | "minimal" | "digital" | "digital-modern" | "digital-minimal";
-
-export const clockDesigns = [
-  { id: "classic", name: "Classic" },
-  { id: "modern", name: "Modern" },
-  { id: "minimal", name: "Minimal" },
-  { id: "digital", name: "Digital" },
-  { id: "digital-modern", name: "Digital Modern" },
-  { id: "digital-minimal", name: "Digital Minimal" },
 ];
 
 export default countries;

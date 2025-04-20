@@ -6,8 +6,13 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
+import BackgroundSelector from "./BackgroundSelector";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onBackgroundChange: (background: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -43,6 +48,10 @@ const Header: React.FC = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
+            <BackgroundSelector
+              selectedBackground={localStorage.getItem("clockBackground") || "bg-gray-900"}
+              onChange={onBackgroundChange}
+            />
             <Button
               variant="ghost"
               size="icon"

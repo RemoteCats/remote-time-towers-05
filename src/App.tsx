@@ -10,9 +10,9 @@ import NotFound from "./pages/NotFound";
 import Tools from "./pages/Tools";
 import Deadliners from "./pages/Deadliners";
 import Analytics from "./pages/Analytics";
+import MusicPlayer from "./components/MusicPlayer";
 import React from "react";
 
-// Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -22,6 +22,9 @@ const App = () => {
         <ThemeProvider defaultTheme="system">
           <TooltipProvider>
             <BrowserRouter>
+              <div className="fixed bottom-4 right-4 z-50">
+                <MusicPlayer isCompact />
+              </div>
               <Toaster />
               <Sonner />
               <Routes>
@@ -29,7 +32,6 @@ const App = () => {
                 <Route path="/tools" element={<Tools />} />
                 <Route path="/deadliners" element={<Deadliners />} />
                 <Route path="/analytics" element={<Analytics />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
