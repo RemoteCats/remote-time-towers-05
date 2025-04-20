@@ -12,36 +12,34 @@ import Tools from "./pages/Tools";
 import Deadliners from "./pages/Deadliners";
 import Analytics from "./pages/Analytics";
 import MusicPlayer from "./components/MusicPlayer";
-import React from "react";
 
+// Create a new QueryClient instance outside of the component
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="system">
-          <BrowserRouter>
-            <AuthProvider>
-              <TooltipProvider>
-                <div className="fixed bottom-4 right-4 z-50">
-                  <MusicPlayer isCompact />
-                </div>
-                <Toaster />
-                <Sonner />
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/tools" element={<Tools />} />
-                  <Route path="/deadliners" element={<Deadliners />} />
-                  <Route path="/analytics" element={<Analytics />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </TooltipProvider>
-            </AuthProvider>
-          </BrowserRouter>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="system">
+        <BrowserRouter>
+          <AuthProvider>
+            <TooltipProvider>
+              <div className="fixed bottom-4 right-4 z-50">
+                <MusicPlayer isCompact />
+              </div>
+              <Toaster />
+              <Sonner />
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/tools" element={<Tools />} />
+                <Route path="/deadliners" element={<Deadliners />} />
+                <Route path="/analytics" element={<Analytics />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </TooltipProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 
