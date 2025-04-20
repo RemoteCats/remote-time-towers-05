@@ -9,7 +9,7 @@ import { AuthProvider } from "./hooks/useAuth";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Tools from "./pages/Tools";
-import Deadliners from "./pages/Deadliners";
+import RCDeals from "./pages/RCDeals";
 import Analytics from "./pages/Analytics";
 import MusicPlayer from "./components/MusicPlayer";
 
@@ -19,7 +19,7 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system">
+      <ThemeProvider defaultTheme="dark">
         <BrowserRouter>
           <AuthProvider>
             <TooltipProvider>
@@ -31,7 +31,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/tools" element={<Tools />} />
-                <Route path="/deadliners" element={<Deadliners />} />
+                <Route path="/rc-deals" element={<RCDeals />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

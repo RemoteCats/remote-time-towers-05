@@ -25,50 +25,43 @@ export default {
       fontFamily: {
         'ibm-mono': ['IBM Plex Mono', 'monospace'],
         'josefin': ['Josefin Sans', 'sans-serif'],
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Josefin Sans', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT: "#999266",
+          foreground: "#000000",
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
+          DEFAULT: "rgba(153, 146, 102, 0.1)",
+          foreground: "#999266",
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+          DEFAULT: "#1A1F2C",
+          foreground: "#999266",
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          DEFAULT: "#999266",
+          foreground: "#000000",
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
+          DEFAULT: "#000000",
+          foreground: "#999266",
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          DEFAULT: "#1A1F2C",
+          foreground: "#999266",
         },
-        clock: {
-          'light': '#f8fafc',
-          'dark': '#1e293b',
-          'accent': '#3b82f6',
-          'accent-hover': '#2563eb',
-          'face': '#f1f5f9'
-        }
       },
       borderRadius: {
         lg: 'var(--radius)',
