@@ -2,19 +2,25 @@
 import React, { useState } from "react";
 import { countries, Country } from "../data/countries";
 import { cn } from "@/lib/utils";
+import { Input } from "./ui/input";
 
 interface CountrySelectorProps {
   selectedCountries: Country[];
   onToggleCountry: (country: Country) => void;
+  customCountries?: Country[];
 }
 
 export const CountrySelector: React.FC<CountrySelectorProps> = ({ 
   selectedCountries, 
-  onToggleCountry 
+  onToggleCountry,
+  customCountries = []
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   
-  const filteredCountries = countries.filter(country => 
+  // Combine predefined countries with custom countries
+  const allCountries = [...countries, ...customCountries];
+  
+  const filteredCountries = allCountries.filter(country => 
     country.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
@@ -24,18 +30,19 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="mb-4">
-        <input
+        <Input
           type="text"
           placeholder="Search countries..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
+          className="w-full"
         />
       </div>
       
       <div className="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-2">
         {sortedCountries.map((country) => {
           const isSelected = selectedCountries.some(c => c.id === country.id);
+          const isCustom = country.id.toString().startsWith("custom-");
           
           return (
             <button
@@ -44,13 +51,19 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
                 "flex items-center justify-between p-3 rounded-md transition-colors",
                 isSelected 
                   ? "bg-primary/10 border border-primary/30" 
-                  : "bg-card hover:bg-muted/50 border border-transparent"
+                  : "bg-card hover:bg-muted/50 border border-transparent",
+                isCustom && "border-l-4 border-l-primary"
               )}
               onClick={() => onToggleCountry(country)}
             >
               <div className="flex items-center">
                 <span className="text-2xl mr-3">{country.flag}</span>
                 <span>{country.name}</span>
+                {isCustom && (
+                  <span className="ml-2 px-2 py-0.5 bg-primary/20 rounded-full text-xs">
+                    Custom
+                  </span>
+                )}
               </div>
               <div className="flex items-center">
                 <span className="text-xs text-muted-foreground mr-2">

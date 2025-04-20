@@ -3,17 +3,20 @@ import React from "react";
 import useClock from "../hooks/useClock";
 import { Country, ClockDesign } from "../data/countries";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 interface ClockCardProps {
   country: Country;
   design: ClockDesign;
   onRemove?: () => void;
+  isCompact?: boolean;
 }
 
 export const ClockCard: React.FC<ClockCardProps> = ({ 
   country, 
   design,
-  onRemove 
+  onRemove,
+  isCompact = false
 }) => {
   const { hours, minutes, seconds, ampm, timeString } = useClock(country.timezone);
 
@@ -24,7 +27,10 @@ export const ClockCard: React.FC<ClockCardProps> = ({
 
   if (design === "digital") {
     return (
-      <div className="relative bg-gray-900 text-white p-4 rounded-lg shadow-md w-full max-w-xs">
+      <div className={cn(
+        "relative bg-gray-900 text-white p-4 rounded-lg shadow-md w-full",
+        isCompact ? "max-w-[200px]" : "max-w-xs"
+      )}>
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center">
             <span className="text-xl mr-2">{country.flag}</span>
@@ -35,11 +41,14 @@ export const ClockCard: React.FC<ClockCardProps> = ({
             className="text-gray-400 hover:text-white"
             aria-label={`Remove ${country.name} clock`}
           >
-            ✕
+            <X className="h-4 w-4" />
           </button>
         </div>
         <div className="bg-black border border-gray-700 rounded-md p-4 font-mono text-center">
-          <div className="text-3xl tracking-wider text-green-400">
+          <div className={cn(
+            "tracking-wider text-green-400",
+            isCompact ? "text-xl" : "text-3xl"
+          )}>
             {timeString}
           </div>
         </div>
@@ -51,7 +60,10 @@ export const ClockCard: React.FC<ClockCardProps> = ({
   }
 
   return (
-    <div className="relative bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs">
+    <div className={cn(
+      "relative bg-card p-4 rounded-lg shadow-md w-full",
+      isCompact ? "max-w-[200px]" : "max-w-xs"
+    )}>
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center">
           <span className="text-xl mr-2">{country.flag}</span>
@@ -62,14 +74,15 @@ export const ClockCard: React.FC<ClockCardProps> = ({
           className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
           aria-label={`Remove ${country.name} clock`}
         >
-          ✕
+          <X className="h-4 w-4" />
         </button>
       </div>
       
       <div className="flex justify-center">
         <div 
           className={cn(
-            "clock-container w-36 h-36", 
+            "clock-container", 
+            isCompact ? "w-24 h-24" : "w-36 h-36", 
             {
               "clock-classic": design === "classic",
               "clock-modern": design === "modern",

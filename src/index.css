@@ -110,7 +110,7 @@
 
   /* Clock styles */
   .clock-classic {
-    @apply bg-clock-face border-4 border-gray-300 shadow-lg;
+    @apply bg-clock-face border-4 border-gray-300 shadow-lg dark:border-gray-600;
   }
   
   .clock-modern {
@@ -123,5 +123,17 @@
   
   .clock-digital {
     @apply bg-black text-white font-mono flex items-center justify-center;
+  }
+}
+
+/* Animations for page transitions */
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
