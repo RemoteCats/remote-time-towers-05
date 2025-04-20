@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
+import SearchBar from "../components/SearchBar";
 import ClockCard from "../components/ClockCard";
 import CountrySelector from "../components/CountrySelector";
 import ClockDesignSelector from "../components/ClockDesignSelector";
@@ -27,6 +28,12 @@ const Index: React.FC = () => {
   const [selectedBackground, setSelectedBackground] = useState(backgroundOptions[0].id);
   const [showMusicPlayer, setShowMusicPlayer] = useState(false);
   
+  const [catUsers] = useState([
+    { id: '1', name: 'Whiskers', photoUrl: '/placeholder.svg' },
+    { id: '2', name: 'Luna', photoUrl: '/placeholder.svg' },
+    // Add more mock cat users as needed
+  ]);
+
   // Load custom countries from localStorage on mount
   useEffect(() => {
     const savedCustomCountries = localStorage.getItem("customCountries");
@@ -149,13 +156,27 @@ const Index: React.FC = () => {
     ));
   };
 
+  const handleSearchCountrySelect = (country: Country) => {
+    if (!selectedCountries.some(c => c.id === country.id)) {
+      setSelectedCountries(prev => [...prev, country]);
+      toast({
+        title: "Country added",
+        description: `${country.name} has been added to your clocks`,
+      });
+    }
+  };
+
   return (
     <MainLayout>
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 font-josefin text-gradient">RemoteCats</h1>
-        <p className="text-muted-foreground max-w-lg mx-auto">
+        <h1 className="text-3xl font-bold mb-2 font-josefin text-gray-200">RemoteCats</h1>
+        <p className="text-muted-foreground max-w-lg mx-auto mb-8">
           Track the time in countries with the highest number of remote workers. Customize your view to focus on the regions that matter to you.
         </p>
+        <SearchBar 
+          onSelectCountry={handleSearchCountrySelect}
+          catUsers={catUsers}
+        />
       </div>
 
       <div className="mb-8 grid md:grid-cols-12 gap-4">
