@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import ClockCard from "../components/ClockCard";
@@ -231,54 +232,55 @@ const Index: React.FC = () => {
           <WellnessReminder />
         </div>
       
-      <div className="max-w-2xl mx-auto mb-8">
-        <LanguageLearner countries={selectedCountries} />
-      </div>
+        <div className="max-w-2xl mx-auto mb-8">
+          <LanguageLearner countries={selectedCountries} />
+        </div>
 
       
-      {showSelector && (
-        <div className="mb-8 p-4 border rounded-lg bg-card">
-          <h3 className="text-lg font-medium mb-4 text-center">
-            Select Countries to Display
-          </h3>
-          <CountrySelector 
-            selectedCountries={selectedCountries}
-            onToggleCountry={toggleCountry}
-            customCountries={customCountries}
-          />
-        </div>
-      )}
-      
-      {showCustomForm && (
-        <div className="mb-8 p-4 border rounded-lg bg-card">
-          <h3 className="text-lg font-medium mb-4 text-center">
-            Add Custom Location
-          </h3>
-          <CustomCountryForm onAddCountry={handleAddCustomCountry} />
-        </div>
-      )}
-      
-      {filteredCountries.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground">
-          <p>No countries selected. Please select at least one country to display.</p>
-        </div>
-      ) : (
-        <>
-          <div className={`grid grid-cols-1 ${isCompact ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-6 justify-items-center`}>
-            {filteredCountries.map((country) => (
-              <ClockCard
-                key={country.id}
-                country={country}
-                design={clockDesign}
-                onRemove={() => handleRemoveClock(country.id)}
-                isCompact={isCompact}
-                backgroundColor={selectedBackground}
-                onNameChange={(name) => handleNameChange(country, name)}
-              />
-            ))}
+        {showSelector && (
+          <div className="mb-8 p-4 border rounded-lg bg-card">
+            <h3 className="text-lg font-medium mb-4 text-center">
+              Select Countries to Display
+            </h3>
+            <CountrySelector 
+              selectedCountries={selectedCountries}
+              onToggleCountry={toggleCountry}
+              customCountries={customCountries}
+            />
           </div>
-        </>
-      )}
+        )}
+        
+        {showCustomForm && (
+          <div className="mb-8 p-4 border rounded-lg bg-card">
+            <h3 className="text-lg font-medium mb-4 text-center">
+              Add Custom Location
+            </h3>
+            <CustomCountryForm onAddCountry={handleAddCustomCountry} />
+          </div>
+        )}
+        
+        {filteredCountries.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            <p>No countries selected. Please select at least one country to display.</p>
+          </div>
+        ) : (
+          <>
+            <div className={`grid grid-cols-1 ${isCompact ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-6 justify-items-center`}>
+              {filteredCountries.map((country) => (
+                <ClockCard
+                  key={country.id}
+                  country={country}
+                  design={clockDesign}
+                  onRemove={() => handleRemoveClock(country.id)}
+                  isCompact={isCompact}
+                  backgroundColor={selectedBackground}
+                  onNameChange={(name) => handleNameChange(country, name)}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </MainLayout>
   );
 };
