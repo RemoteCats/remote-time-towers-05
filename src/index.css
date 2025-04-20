@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
@@ -123,6 +122,27 @@
   
   .clock-digital {
     @apply bg-black text-white font-mono flex items-center justify-center;
+  }
+}
+
+/* Animations for page transitions */
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-soft-blink {
+    animation: soft-blink 2s ease-in-out infinite;
+  }
+
+  @keyframes soft-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
 }
 
