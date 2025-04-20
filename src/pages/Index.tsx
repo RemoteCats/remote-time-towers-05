@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import ClockCard from "../components/ClockCard";
@@ -16,7 +15,7 @@ import MusicPlayer from "../components/MusicPlayer";
 
 const Index: React.FC = () => {
   const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
-  const [clockDesign, setClockDesign] = useState<ClockDesign>("classic");
+  const [clockDesign, setClockDesign] = useState<ClockDesign>("digital-classic");
   const [showSelector, setShowSelector] = useState(false);
   const [showCustomForm, setShowCustomForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -123,6 +122,30 @@ const Index: React.FC = () => {
     country.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleNameChange = (country: Country, newName: string) => {
+    setSelectedCountries(prev => 
+      prev.map(c => 
+        c.id === country.id ? { ...c, displayName: newName } : c
+      )
+    );
+    
+    // Also update in custom countries if applicable
+    if (country.id.startsWith("custom-")) {
+      setCustomCountries(prev =>
+        prev.map(c =>
+          c.id === country.id ? { ...c, displayName: newName } : c
+        )
+      );
+    }
+
+    // Save changes to localStorage
+    localStorage.setItem("selectedCountries", JSON.stringify(
+      selectedCountries.map(c => 
+        c.id === country.id ? { ...c, displayName: newName } : c
+      )
+    ));
+  };
+
   return (
     <MainLayout>
       <div className="text-center mb-8">
@@ -188,15 +211,13 @@ const Index: React.FC = () => {
           />
         </div>
         
-        {clockDesign.includes("digital") && (
-          <div className="max-w-md mx-auto mb-4">
-            <h3 className="text-center text-sm font-medium mb-2">Clock Background</h3>
-            <BackgroundSelector 
-              selectedBackground={selectedBackground}
-              onChange={setSelectedBackground}
-            />
-          </div>
-        )}
+        <div className="max-w-md mx-auto mb-4">
+          <h3 className="text-center text-sm font-medium mb-2">Clock Background</h3>
+          <BackgroundSelector 
+            selectedBackground={selectedBackground}
+            onChange={setSelectedBackground}
+          />
+        </div>
         
         {showMusicPlayer && (
           <div className="max-w-md mx-auto my-8">
@@ -241,7 +262,8 @@ const Index: React.FC = () => {
                 design={clockDesign}
                 onRemove={() => handleRemoveClock(country.id)}
                 isCompact={isCompact}
-                backgroundColor={clockDesign.includes("digital") ? selectedBackground : undefined}
+                backgroundColor={selectedBackground}
+                onNameChange={(name) => handleNameChange(country, name)}
               />
             ))}
           </div>

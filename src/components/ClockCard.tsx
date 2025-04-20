@@ -3,7 +3,7 @@ import React from "react";
 import useClock from "../hooks/useClock";
 import { Country, ClockDesign } from "../data/countries";
 import { cn } from "@/lib/utils";
-import { X, Edit } from "lucide-react";
+import { X, Edit, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -91,38 +91,51 @@ export const ClockCard: React.FC<ClockCardProps> = ({
         <div className="flex items-center">
           <span className="text-xl mr-2">{country.flag}</span>
           {isEditing ? (
-            <Input
-              value={tempName}
-              onChange={(e) => setTempName(e.target.value)}
-              onBlur={handleNameSubmit}
-              onKeyPress={handleKeyPress}
-              className="h-8 w-40"
-              autoFocus
-            />
+            <div className="flex items-center">
+              <Input
+                value={tempName}
+                onChange={(e) => setTempName(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="h-8 w-32 mr-1"
+                autoFocus
+              />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 w-6 p-0"
+                onClick={handleNameSubmit}
+              >
+                <Check className="h-3 w-3" />
+              </Button>
+            </div>
           ) : (
             <div className="flex items-center">
               <h3 className="font-medium text-sm text-white mr-2">
                 {country.displayName || country.name}
               </h3>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-6 w-6 p-0"
-                onClick={() => setIsEditing(true)}
-              >
-                <Edit className="h-3 w-3" />
-              </Button>
+              {onNameChange && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0"
+                  onClick={() => setIsEditing(true)}
+                >
+                  <Edit className="h-3 w-3" />
+                </Button>
+              )}
             </div>
           )}
         </div>
-        <Button 
-          variant="ghost" 
-          size="sm"
-          onClick={onRemove}
-          className="text-gray-400 hover:text-white"
-        >
-          <X className="h-4 w-4" />
-        </Button>
+        {onRemove && (
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={onRemove}
+            className="text-gray-400 hover:text-white"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       {renderCard()}
       <div className="mt-2 text-xs text-gray-400 text-center">
