@@ -1,9 +1,14 @@
 
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MusicPlayer from "../components/MusicPlayer";
+import Calculator from "../components/tools/Calculator";
+import Scheduler from "../components/tools/Scheduler";
+import VoiceNotes from "../components/tools/VoiceNotes";
 
 interface Tool {
   name: string;
@@ -98,10 +103,46 @@ const tools: Tool[] = [
     url: "https://1password.com",
     category: "Security",
   },
+  {
+    name: "Clockify",
+    description: "Time tracking app for teams and freelancers.",
+    icon: "⏰",
+    url: "https://clockify.me",
+    category: "Productivity",
+  },
+  {
+    name: "Hunter.io",
+    description: "Email finder and lead generation tool.",
+    icon: "📧",
+    url: "https://hunter.io",
+    category: "Communication",
+  },
+  {
+    name: "Krisp",
+    description: "Noise cancelling app for calls.",
+    icon: "🔇",
+    url: "https://krisp.ai",
+    category: "Communication",
+  },
+  {
+    name: "Grammarly",
+    description: "Writing assistance tool for error-free writing.",
+    icon: "✍️",
+    url: "https://grammarly.com",
+    category: "Productivity",
+  },
+  {
+    name: "Motivate.Clock",
+    description: "Daily motivation quotes and reminders for remote workers.",
+    icon: "💪",
+    url: "https://motivateclock.com",
+    category: "Motivation",
+  },
 ];
 
 const Tools: React.FC = () => {
   const categories = [...new Set(tools.map((tool) => tool.category))];
+  const [activeTab, setActiveTab] = useState<string>("external-tools");
 
   return (
     <MainLayout>
@@ -112,40 +153,68 @@ const Tools: React.FC = () => {
         </p>
       </div>
 
-      {categories.map((category) => (
-        <div key={category} className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{category}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools
-              .filter((tool) => tool.category === category)
-              .map((tool) => (
-                <Card key={tool.name} className="hover:shadow-lg transition-all">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-2xl">{tool.icon}</span>
-                        <CardTitle>{tool.name}</CardTitle>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base">
-                      {tool.description}
-                    </CardDescription>
-                  </CardContent>
-                  <CardFooter>
-                    <Button asChild variant="outline" className="w-full">
-                      <a href={tool.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                        Visit Site
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
+        <TabsList className="mx-auto">
+          <TabsTrigger value="external-tools">External Tools</TabsTrigger>
+          <TabsTrigger value="built-in-tools">Built-in Tools</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="external-tools" className="mt-6">
+          {categories.map((category) => (
+            <div key={category} className="mb-12">
+              <h2 className="text-2xl font-semibold mb-4">{category}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {tools
+                  .filter((tool) => tool.category === category)
+                  .map((tool) => (
+                    <Card key={tool.name} className="hover:shadow-lg transition-all">
+                      <CardHeader className="pb-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-2xl">{tool.icon}</span>
+                            <CardTitle>{tool.name}</CardTitle>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <CardDescription className="text-base">
+                          {tool.description}
+                        </CardDescription>
+                      </CardContent>
+                      <CardFooter>
+                        <Button asChild variant="outline" className="w-full">
+                          <a href={tool.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                            Visit Site
+                            <ExternalLink className="ml-2 h-4 w-4" />
+                          </a>
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+              </div>
+            </div>
+          ))}
+        </TabsContent>
+        
+        <TabsContent value="built-in-tools" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Productivity Tools</h2>
+              <div className="space-y-6">
+                <MusicPlayer />
+                <Calculator />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Organization Tools</h2>
+              <div className="space-y-6">
+                <Scheduler />
+                <VoiceNotes />
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        </TabsContent>
+      </Tabs>
     </MainLayout>
   );
 };

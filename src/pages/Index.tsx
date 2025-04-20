@@ -11,6 +11,8 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import BackgroundSelector, { backgroundOptions } from "../components/BackgroundSelector";
+import MusicPlayer from "../components/MusicPlayer";
 
 const Index: React.FC = () => {
   const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
@@ -20,6 +22,8 @@ const Index: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [customCountries, setCustomCountries] = useState<Country[]>([]);
   const [isCompact, setIsCompact] = useState(false);
+  const [selectedBackground, setSelectedBackground] = useState(backgroundOptions[0].id);
+  const [showMusicPlayer, setShowMusicPlayer] = useState(false);
   
   // Load custom countries from localStorage on mount
   useEffect(() => {
@@ -49,6 +53,11 @@ const Index: React.FC = () => {
     if (savedIsCompact) {
       setIsCompact(JSON.parse(savedIsCompact));
     }
+    
+    const savedBackground = localStorage.getItem("clockBackground");
+    if (savedBackground) {
+      setSelectedBackground(savedBackground);
+    }
   }, []);
   
   // Save state to localStorage whenever it changes
@@ -67,6 +76,10 @@ const Index: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("isCompact", JSON.stringify(isCompact));
   }, [isCompact]);
+  
+  useEffect(() => {
+    localStorage.setItem("clockBackground", selectedBackground);
+  }, [selectedBackground]);
 
   const handleAddCustomCountry = (countryData: Omit<Country, "id">) => {
     const id = `custom-${Date.now()}`;
@@ -154,9 +167,18 @@ const Index: React.FC = () => {
             />
             <Label htmlFor="compact-mode">Compact View</Label>
           </div>
+          
+          <div className="flex items-center space-x-2">
+            <Switch 
+              id="music-player"
+              checked={showMusicPlayer}
+              onCheckedChange={setShowMusicPlayer}
+            />
+            <Label htmlFor="music-player">Music Player</Label>
+          </div>
         </div>
         
-        <div className="max-w-md mx-auto">
+        <div className="max-w-md mx-auto mb-4">
           <Input
             type="search"
             placeholder="Search your clocks..."
@@ -165,6 +187,22 @@ const Index: React.FC = () => {
             className="mb-4"
           />
         </div>
+        
+        {clockDesign.includes("digital") && (
+          <div className="max-w-md mx-auto mb-4">
+            <h3 className="text-center text-sm font-medium mb-2">Clock Background</h3>
+            <BackgroundSelector 
+              selectedBackground={selectedBackground}
+              onChange={setSelectedBackground}
+            />
+          </div>
+        )}
+        
+        {showMusicPlayer && (
+          <div className="max-w-md mx-auto my-8">
+            <MusicPlayer />
+          </div>
+        )}
       </div>
       
       {showSelector && (
@@ -203,6 +241,7 @@ const Index: React.FC = () => {
                 design={clockDesign}
                 onRemove={() => handleRemoveClock(country.id)}
                 isCompact={isCompact}
+                backgroundColor={clockDesign.includes("digital") ? selectedBackground : undefined}
               />
             ))}
           </div>

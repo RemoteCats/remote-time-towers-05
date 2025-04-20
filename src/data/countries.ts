@@ -1,4 +1,3 @@
-
 export interface Country {
   id: string;
   name: string;
@@ -95,13 +94,15 @@ export const countries: Country[] = [
   }
 ];
 
-export type ClockDesign = "classic" | "modern" | "minimal" | "digital";
+export type ClockDesign = "classic" | "modern" | "minimal" | "digital" | "digital-modern" | "digital-minimal";
 
-export const clockDesigns: { id: ClockDesign; name: string }[] = [
+export const clockDesigns = [
   { id: "classic", name: "Classic" },
   { id: "modern", name: "Modern" },
   { id: "minimal", name: "Minimal" },
-  { id: "digital", name: "Digital" }
+  { id: "digital", name: "Digital" },
+  { id: "digital-modern", name: "Digital Modern" },
+  { id: "digital-minimal", name: "Digital Minimal" },
 ];
 
 export default countries;

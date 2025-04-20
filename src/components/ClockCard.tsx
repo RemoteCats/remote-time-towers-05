@@ -10,13 +10,15 @@ interface ClockCardProps {
   design: ClockDesign;
   onRemove?: () => void;
   isCompact?: boolean;
+  backgroundColor?: string;
 }
 
 export const ClockCard: React.FC<ClockCardProps> = ({ 
   country, 
   design,
   onRemove,
-  isCompact = false
+  isCompact = false,
+  backgroundColor = "bg-gray-900"
 }) => {
   const { hours, minutes, seconds, ampm, timeString } = useClock(country.timezone);
 
@@ -28,13 +30,14 @@ export const ClockCard: React.FC<ClockCardProps> = ({
   if (design === "digital") {
     return (
       <div className={cn(
-        "relative bg-gray-900 text-white p-4 rounded-lg shadow-md w-full",
-        isCompact ? "max-w-[200px]" : "max-w-xs"
+        "relative p-4 rounded-lg shadow-md w-full transition-all",
+        isCompact ? "max-w-[200px]" : "max-w-xs",
+        backgroundColor
       )}>
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center">
             <span className="text-xl mr-2">{country.flag}</span>
-            <h3 className="font-medium text-sm">{country.name}</h3>
+            <h3 className="font-medium text-sm text-white">{country.name}</h3>
           </div>
           <button 
             onClick={onRemove}
@@ -47,6 +50,72 @@ export const ClockCard: React.FC<ClockCardProps> = ({
         <div className="bg-black border border-gray-700 rounded-md p-4 font-mono text-center">
           <div className={cn(
             "tracking-wider text-green-400",
+            isCompact ? "text-xl" : "text-3xl"
+          )}>
+            {timeString}
+          </div>
+        </div>
+        <div className="mt-2 text-xs text-gray-400 text-center">
+          {country.timezone.replace('_', ' ')}
+        </div>
+      </div>
+    );
+  } else if (design === "digital-modern") {
+    return (
+      <div className={cn(
+        "relative p-4 rounded-lg shadow-md w-full transition-all",
+        isCompact ? "max-w-[200px]" : "max-w-xs", 
+        backgroundColor
+      )}>
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex items-center">
+            <span className="text-xl mr-2">{country.flag}</span>
+            <h3 className="font-medium text-sm text-white">{country.name}</h3>
+          </div>
+          <button 
+            onClick={onRemove}
+            className="text-gray-400 hover:text-white"
+            aria-label={`Remove ${country.name} clock`}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <div className="bg-gradient-to-r from-blue-900 to-blue-800 border border-blue-700 rounded-md p-4 font-mono text-center shadow-inner">
+          <div className={cn(
+            "tracking-wider text-blue-300",
+            isCompact ? "text-xl" : "text-3xl"
+          )}>
+            {timeString}
+          </div>
+        </div>
+        <div className="mt-2 text-xs text-gray-300 text-center">
+          {country.timezone.replace('_', ' ')}
+        </div>
+      </div>
+    );
+  } else if (design === "digital-minimal") {
+    return (
+      <div className={cn(
+        "relative p-4 rounded-lg shadow-md w-full transition-all",
+        isCompact ? "max-w-[200px]" : "max-w-xs",
+        backgroundColor
+      )}>
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex items-center">
+            <span className="text-xl mr-2">{country.flag}</span>
+            <h3 className="font-medium text-sm text-white">{country.name}</h3>
+          </div>
+          <button 
+            onClick={onRemove}
+            className="text-gray-400 hover:text-white"
+            aria-label={`Remove ${country.name} clock`}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <div className="bg-transparent border-b-2 border-gray-600 p-4 font-mono text-center">
+          <div className={cn(
+            "tracking-wider text-white",
             isCompact ? "text-xl" : "text-3xl"
           )}>
             {timeString}
