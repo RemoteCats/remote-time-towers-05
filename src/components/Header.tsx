@@ -12,13 +12,11 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
   return (
-    <header className="py-4 border-b border-gray-800">
+    <header className="py-4 border-b border-gray-900 bg-gray-900/90">
       <div className="container">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Cat className="h-6 w-6 text-primary animate-pulse" />
-            <div className="flex flex-col">
-              <pre className="text-xs font-mono leading-none text-primary">
+          <div className="flex flex-col">
+            <pre className="text-xs font-ibm-mono leading-none text-primary">
 {`░▒▓███████▓▒░ ░▒▓██████▓▒░  
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
@@ -27,8 +25,7 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░`}
               </pre>
-              <h1 className="text-xl font-bold">RemoteCats</h1>
-            </div>
+            <h1 className="text-xl font-bold font-josefin">RemoteCats</h1>
           </div>
           
           <div className="flex items-center space-x-4">
@@ -64,15 +61,15 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
               <SheetTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="px-4 py-2 rounded-md flex items-center space-x-1 transition-all hover:scale-105 active:scale-95 bg-gray-800 border-gray-700"
+                  className="px-4 py-2 rounded-md flex items-center space-x-1 transition-all hover:scale-105 active:scale-95 bg-gray-900 border-gray-800"
                 >
-                  <Cat className="h-4 w-4 mr-1" />
+                  <Cat className="h-4 w-4 mr-1 animate-pulse" />
                   <span className="text-gray-200">Sign In</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent className="bg-gray-900 border-gray-800">
                 <SheetHeader>
-                  <SheetTitle>Sign In</SheetTitle>
+                  <SheetTitle className="text-gray-200">Sign In</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col space-y-4 mt-6">
                   <Button variant="outline" className="w-full group bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700">

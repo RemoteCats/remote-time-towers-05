@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -23,6 +22,12 @@ export default {
       }
     },
     extend: {
+      fontFamily: {
+        'ibm-mono': ['IBM Plex Mono', 'monospace'],
+        'josefin': ['Josefin Sans', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -95,10 +100,6 @@ export default {
         'pulse-subtle': 'pulse-subtle 1s ease-in-out infinite',
         'tick': 'tick 1s ease-out'
       },
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-      }
     }
   },
   plugins: [require("tailwindcss-animate")],
