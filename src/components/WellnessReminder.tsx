@@ -4,7 +4,7 @@ import { toast } from "@/components/ui/sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Water, Dumbbell, StretchHorizontal } from "lucide-react";
+import { Droplet, Dumbbell, StretchHorizontal } from "lucide-react";
 
 interface Reminder {
   type: 'water' | 'exercise' | 'stretch';
@@ -57,7 +57,7 @@ const WellnessReminder = () => {
   const getReminderIcon = (type: Reminder['type']) => {
     switch (type) {
       case 'water':
-        return <Water className="h-5 w-5" />;
+        return <Droplet className="h-5 w-5" />;
       case 'exercise':
         return <Dumbbell className="h-5 w-5" />;
       case 'stretch':
