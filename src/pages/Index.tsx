@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import ClockCard from "../components/ClockCard";
@@ -15,6 +14,7 @@ import BackgroundSelector, { backgroundOptions } from "../components/BackgroundS
 import MusicPlayer from "../components/MusicPlayer";
 import WellnessReminder from "../components/WellnessReminder";
 import LanguageLearner from "../components/LanguageLearner";
+import OnlyCats from "../components/OnlyCats";
 
 const Index: React.FC = () => {
   const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
@@ -152,120 +152,96 @@ const Index: React.FC = () => {
   return (
     <MainLayout>
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">Remote Clocker</h1>
+        <h1 className="text-3xl font-bold mb-2 font-josefin text-gradient">RemoteCats</h1>
         <p className="text-muted-foreground max-w-lg mx-auto">
           Track the time in countries with the highest number of remote workers. Customize your view to focus on the regions that matter to you.
         </p>
       </div>
-      
-      <div className="mb-8">
-        <div className="flex flex-wrap gap-4 justify-center items-center mb-4">
-          <ClockDesignSelector 
-            selectedDesign={clockDesign}
-            onChange={setClockDesign}
-          />
-          
-          <Button
-            variant="outline"
-            onClick={() => {
-              setShowSelector(!showSelector);
-              setShowCustomForm(false);
-            }}
-          >
-            {showSelector ? "Hide Countries" : "Select Countries"}
-          </Button>
-          
-          <Button
-            variant="outline"
-            onClick={() => {
-              setShowCustomForm(!showCustomForm);
-              setShowSelector(false);
-            }}
-          >
-            {showCustomForm ? "Hide Custom Form" : "Add Custom Location"}
-          </Button>
-          
-          <div className="flex items-center space-x-2">
-            <Switch 
-              id="compact-mode"
-              checked={isCompact}
-              onCheckedChange={setIsCompact}
+
+      <div className="mb-8 grid md:grid-cols-12 gap-4">
+        {/* Main Clock Section */}
+        <div className="md:col-span-8 space-y-4">
+          <div className="flex flex-wrap gap-4 justify-center items-center mb-4">
+            <ClockDesignSelector 
+              selectedDesign={clockDesign}
+              onChange={setClockDesign}
             />
-            <Label htmlFor="compact-mode">Compact View</Label>
+            
+            <Button
+              variant="outline"
+              className="bg-[#2A2530] hover:bg-[#332B3B] border-gray-800"
+              onClick={() => {
+                setShowSelector(!showSelector);
+                setShowCustomForm(false);
+              }}
+            >
+              {showSelector ? "Hide Countries" : "Select Countries"}
+            </Button>
+            
+            <Button
+              variant="outline"
+              className="bg-[#2A2530] hover:bg-[#332B3B] border-gray-800"
+              onClick={() => {
+                setShowCustomForm(!showCustomForm);
+                setShowSelector(false);
+              }}
+            >
+              {showCustomForm ? "Hide Custom Form" : "Add Custom Location"}
+            </Button>
+            
+            <div className="flex items-center space-x-2">
+              <Switch 
+                id="compact-mode"
+                checked={isCompact}
+                onCheckedChange={setIsCompact}
+              />
+              <Label htmlFor="compact-mode">Compact View</Label>
+            </div>
           </div>
-          
-          <div className="flex items-center space-x-2">
-            <Switch 
-              id="music-player"
-              checked={showMusicPlayer}
-              onCheckedChange={setShowMusicPlayer}
+
+          <div className="max-w-md mx-auto mb-4">
+            <Input
+              type="search"
+              placeholder="Search your clocks..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="mb-4"
             />
-            <Label htmlFor="music-player">Music Player</Label>
           </div>
-        </div>
-        
-        <div className="max-w-md mx-auto mb-4">
-          <Input
-            type="search"
-            placeholder="Search your clocks..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-4"
-          />
-        </div>
-        
-        <div className="max-w-md mx-auto mb-4">
-          <h3 className="text-center text-sm font-medium mb-2">Clock Background</h3>
+
           <BackgroundSelector 
             selectedBackground={selectedBackground}
             onChange={setSelectedBackground}
           />
-        </div>
-        
-        {showMusicPlayer && (
-          <div className="max-w-md mx-auto my-8">
-            <MusicPlayer />
-          </div>
-        )}
-        
-        <div className="max-w-2xl mx-auto mb-8">
-          <WellnessReminder />
-        </div>
-      
-        <div className="max-w-2xl mx-auto mb-8">
-          <LanguageLearner countries={selectedCountries} />
-        </div>
 
-      
-        {showSelector && (
-          <div className="mb-8 p-4 border rounded-lg bg-card">
-            <h3 className="text-lg font-medium mb-4 text-center">
-              Select Countries to Display
-            </h3>
-            <CountrySelector 
-              selectedCountries={selectedCountries}
-              onToggleCountry={toggleCountry}
-              customCountries={customCountries}
-            />
-          </div>
-        )}
-        
-        {showCustomForm && (
-          <div className="mb-8 p-4 border rounded-lg bg-card">
-            <h3 className="text-lg font-medium mb-4 text-center">
-              Add Custom Location
-            </h3>
-            <CustomCountryForm onAddCountry={handleAddCustomCountry} />
-          </div>
-        )}
-        
-        {filteredCountries.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">
-            <p>No countries selected. Please select at least one country to display.</p>
-          </div>
-        ) : (
-          <>
-            <div className={`grid grid-cols-1 ${isCompact ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-6 justify-items-center`}>
+          {showSelector && (
+            <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
+              <h3 className="text-lg font-medium mb-4 text-center">
+                Select Countries to Display
+              </h3>
+              <CountrySelector 
+                selectedCountries={selectedCountries}
+                onToggleCountry={toggleCountry}
+                customCountries={customCountries}
+              />
+            </div>
+          )}
+          
+          {showCustomForm && (
+            <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
+              <h3 className="text-lg font-medium mb-4 text-center">
+                Add Custom Location
+              </h3>
+              <CustomCountryForm onAddCountry={handleAddCustomCountry} />
+            </div>
+          )}
+
+          {filteredCountries.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>No countries selected. Please select at least one country to display.</p>
+            </div>
+          ) : (
+            <div className={`grid grid-cols-1 ${isCompact ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-6 justify-items-center`}>
               {filteredCountries.map((country) => (
                 <ClockCard
                   key={country.id}
@@ -278,8 +254,36 @@ const Index: React.FC = () => {
                 />
               ))}
             </div>
-          </>
-        )}
+          )}
+        </div>
+
+        {/* Sidebar */}
+        <div className="md:col-span-4 space-y-4">
+          <OnlyCats />
+          
+          {showMusicPlayer && (
+            <div className="mb-4">
+              <MusicPlayer />
+            </div>
+          )}
+          
+          <div className="bg-[#221F26] p-4 rounded-lg border border-gray-800">
+            <WellnessReminder />
+          </div>
+          
+          <div className="bg-[#221F26] p-4 rounded-lg border border-gray-800">
+            <LanguageLearner countries={selectedCountries} />
+          </div>
+          
+          <div className="flex items-center justify-center">
+            <Switch 
+              id="music-player"
+              checked={showMusicPlayer}
+              onCheckedChange={setShowMusicPlayer}
+            />
+            <Label htmlFor="music-player" className="ml-2">Music Player</Label>
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
