@@ -199,43 +199,7 @@ const Index: React.FC = () => {
             </div>
           </div>
 
-          <div className="max-w-md mx-auto mb-4">
-            <Input
-              type="search"
-              placeholder="Search your clocks..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="mb-4"
-            />
-          </div>
-
-          <BackgroundSelector 
-            selectedBackground={selectedBackground}
-            onChange={setSelectedBackground}
-          />
-
-          {showSelector && (
-            <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
-              <h3 className="text-lg font-medium mb-4 text-center">
-                Select Countries to Display
-              </h3>
-              <CountrySelector 
-                selectedCountries={selectedCountries}
-                onToggleCountry={toggleCountry}
-                customCountries={customCountries}
-              />
-            </div>
-          )}
-          
-          {showCustomForm && (
-            <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
-              <h3 className="text-lg font-medium mb-4 text-center">
-                Add Custom Location
-              </h3>
-              <CustomCountryForm onAddCountry={handleAddCustomCountry} />
-            </div>
-          )}
-
+          {/* Clock Display */}
           {filteredCountries.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <p>No countries selected. Please select at least one country to display.</p>
@@ -285,6 +249,29 @@ const Index: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Selector and Forms */}
+      {showSelector && (
+        <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
+          <h3 className="text-lg font-medium mb-4 text-center">
+            Select Countries to Display
+          </h3>
+          <CountrySelector 
+            selectedCountries={selectedCountries}
+            onToggleCountry={toggleCountry}
+            customCountries={customCountries}
+          />
+        </div>
+      )}
+      
+      {showCustomForm && (
+        <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
+          <h3 className="text-lg font-medium mb-4 text-center">
+            Add Custom Location
+          </h3>
+          <CustomCountryForm onAddCountry={handleAddCustomCountry} />
+        </div>
+      )}
     </MainLayout>
   );
 };
