@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
     <header className="py-4 border-b border-gray-900 bg-gray-900/90">
       <div className="container">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col">
+          <Link to="/" className="flex flex-col hover:opacity-90 transition-opacity">
             <pre className="text-xs font-ibm-mono leading-none text-primary">
 {`░▒▓███████▓▒░ ░▒▓██████▓▒░  
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
@@ -26,30 +26,29 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
 ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░`}
               </pre>
             <h1 className="text-xl font-bold font-josefin">RemoteCats</h1>
-          </div>
+          </Link>
           
           <div className="flex items-center space-x-4">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link to="/" className={navigationMenuTriggerStyle()}>
-                    Home
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link to="/tools" className={navigationMenuTriggerStyle()}>
-                    Remote Tools
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link to="/deadliners" className={navigationMenuTriggerStyle()}>
-                    Deadliners
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link to="/analytics" className={navigationMenuTriggerStyle()}>
-                    Analytics
-                  </Link>
+                  <Button variant="ghost" className="flex items-center gap-2">
+                    <Cat className="h-4 w-4" />
+                    Menu
+                  </Button>
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
+                    <div className="py-1" role="menu">
+                      <Link to="/tools" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">
+                        Remote Tools
+                      </Link>
+                      <Link to="/analytics" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">
+                        Analytics
+                      </Link>
+                      <Link to="/deadliners" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">
+                        Deadliners
+                      </Link>
+                    </div>
+                  </div>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
