@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from "@/lib/utils";
 
@@ -9,14 +8,12 @@ export interface BackgroundOption {
 }
 
 export const backgroundOptions: BackgroundOption[] = [
-  { id: 'bg-gray-900', name: 'Dark', className: 'bg-gray-900' },
-  { id: 'bg-blue-900', name: 'Deep Blue', className: 'bg-blue-900' },
-  { id: 'bg-purple-900', name: 'Purple', className: 'bg-purple-900' },
-  { id: 'bg-green-900', name: 'Forest', className: 'bg-green-900' },
-  { id: 'bg-red-900', name: 'Ruby', className: 'bg-red-900' },
-  { id: 'bg-gradient-to-r from-blue-900 to-purple-900', name: 'Ocean Sunset', className: 'bg-gradient-to-r from-blue-900 to-purple-900' },
-  { id: 'bg-gradient-to-r from-green-900 to-blue-900', name: 'Forest Sky', className: 'bg-gradient-to-r from-green-900 to-blue-900' },
-  { id: 'bg-gradient-to-r from-purple-900 to-pink-900', name: 'Twilight', className: 'bg-gradient-to-r from-purple-900 to-pink-900' },
+  { id: 'bg-gray-900', name: 'Charcoal', className: 'bg-gray-900' },
+  { id: 'bg-[#221F26]', name: 'Dark Night', className: 'bg-[#221F26]' },
+  { id: 'bg-[#403E43]', name: 'Slate', className: 'bg-[#403E43]' },
+  { id: 'bg-gradient-to-r from-gray-900 to-gray-800', name: 'Dark Gradient', className: 'bg-gradient-to-r from-gray-900 to-gray-800' },
+  { id: 'bg-gradient-to-r from-[#221F26] to-gray-900', name: 'Night Fade', className: 'bg-gradient-to-r from-[#221F26] to-gray-900' },
+  { id: 'bg-black', name: 'Pure Black', className: 'bg-black' },
 ];
 
 interface BackgroundSelectorProps {

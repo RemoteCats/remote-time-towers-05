@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import BackgroundSelector, { backgroundOptions } from "../components/BackgroundSelector";
 import MusicPlayer from "../components/MusicPlayer";
+import WellnessReminder from "../components/WellnessReminder";
 
 const Index: React.FC = () => {
   const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
@@ -224,6 +225,10 @@ const Index: React.FC = () => {
             <MusicPlayer />
           </div>
         )}
+        
+        <div className="max-w-2xl mx-auto mb-8">
+          <WellnessReminder />
+        </div>
       </div>
       
       {showSelector && (
