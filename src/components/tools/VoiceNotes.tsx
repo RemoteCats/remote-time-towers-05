@@ -6,6 +6,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Mic, MicOff, Save } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 
+// Add TypeScript declarations for SpeechRecognition
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
+
 interface VoiceNotesProps {}
 
 const VoiceNotes: React.FC<VoiceNotesProps> = () => {

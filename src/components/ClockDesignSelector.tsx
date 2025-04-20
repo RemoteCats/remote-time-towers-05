@@ -23,7 +23,7 @@ export const ClockDesignSelector: React.FC<ClockDesignSelectorProps> = ({
               ? "bg-primary text-primary-foreground" 
               : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
           )}
-          onClick={() => onChange(design.id)}
+          onClick={() => onChange(design.id as ClockDesign)}
           aria-pressed={selectedDesign === design.id}
         >
           {design.name}
