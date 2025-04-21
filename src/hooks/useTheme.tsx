@@ -1,7 +1,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "dark" | "ash";
+type Theme = "dark" | "ash" | "grey" | "system";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -21,30 +21,40 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
+function getSystemTheme(): "dark" | "grey" {
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "dark";
+  }
+  // We'll default to "grey" for light mode devices
+  return "grey";
+}
+
 export function ThemeProvider({
   children,
-  defaultTheme = "dark",
+  defaultTheme = "system",
   storageKey = "remote-clocker-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
+  const [theme, setThemeState] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
 
   useEffect(() => {
+    let appliedTheme = theme;
+    if (theme === "system") {
+      appliedTheme = getSystemTheme();
+    }
     const root = window.document.documentElement;
-    root.classList.remove("dark", "ash");
-
-    root.classList.add(theme);
+    root.classList.remove("dark", "ash", "grey");
+    root.classList.add(appliedTheme);
   }, [theme]);
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
+  const setTheme = (theme: Theme) => {
+    localStorage.setItem(storageKey, theme);
+    setThemeState(theme);
   };
+
+  const value = { theme, setTheme };
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
@@ -55,9 +65,7 @@ export function ThemeProvider({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
-
   if (context === undefined)
     throw new Error("useTheme must be used within a ThemeProvider");
-
   return context;
 };

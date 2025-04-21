@@ -1,4 +1,3 @@
-
 import React from "react";
 import useClock from "../hooks/useClock";
 import { Country, ClockDesign } from "../data/countries";
@@ -45,7 +44,7 @@ export const ClockCard: React.FC<ClockCardProps> = ({
     switch (design) {
       case "digital-classic":
         return (
-          <div className="bg-black border border-gray-700 rounded-md p-4 font-mono text-center">
+          <div className="bg-black/40 border border-gray-700/50 rounded-md p-4 font-mono text-center backdrop-blur-lg">
             <div className={cn(
               "tracking-wider text-green-400",
               isCompact ? "text-xl" : "text-3xl"
@@ -56,9 +55,9 @@ export const ClockCard: React.FC<ClockCardProps> = ({
         );
       case "digital-modern":
         return (
-          <div className="bg-gradient-to-r from-blue-900 to-blue-800 border border-blue-700 rounded-md p-4 font-mono text-center shadow-inner">
+          <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/20 border border-gray-700/50 rounded-md p-4 font-mono text-center shadow-inner backdrop-blur-lg">
             <div className={cn(
-              "tracking-wider text-blue-300",
+              "tracking-wider text-purple-200",
               isCompact ? "text-xl" : "text-3xl"
             )}>
               {timeString}
@@ -67,7 +66,7 @@ export const ClockCard: React.FC<ClockCardProps> = ({
         );
       case "digital-minimal":
         return (
-          <div className="bg-transparent border-b-2 border-gray-600 p-4 font-mono text-center">
+          <div className="bg-transparent border-b-2 border-gray-600/70 p-4 font-mono text-center">
             <div className={cn(
               "tracking-wider text-white",
               isCompact ? "text-xl" : "text-3xl"
@@ -83,9 +82,9 @@ export const ClockCard: React.FC<ClockCardProps> = ({
 
   return (
     <div className={cn(
-      "relative p-4 rounded-lg shadow-md w-full transition-all",
+      "relative p-4 rounded-lg shadow-md w-full transition-all backdrop-blur-md",
       isCompact ? "max-w-[200px]" : "max-w-xs",
-      backgroundColor
+      "bg-black/20"
     )}>
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center">
@@ -144,5 +143,4 @@ export const ClockCard: React.FC<ClockCardProps> = ({
     </div>
   );
 };
-
 export default ClockCard;

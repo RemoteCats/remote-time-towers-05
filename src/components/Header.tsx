@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Cat } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -9,7 +10,6 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import AuthButton from "./AuthButton";
-import { ThemeDropdown } from "./ThemeDropdown";
 import BackgroundSelector from "./BackgroundSelector";
 
 interface HeaderProps {
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
               selectedBackground={localStorage.getItem("clockBackground") || "bg-black"}
               onChange={onBackgroundChange}
             />
-            <ThemeDropdown />
+            {/* ThemeDropdown removed */}
             <AuthButton />
           </div>
         </div>

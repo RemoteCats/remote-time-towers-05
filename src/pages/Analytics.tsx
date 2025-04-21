@@ -1,4 +1,3 @@
-
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +12,13 @@ const remoteWorkData = [
   { country: "Australia", value: 72, previousValue: 65 },
   { country: "Japan", value: 65, previousValue: 52 },
   { country: "India", value: 79, previousValue: 65 },
+];
+// Add one more data point for a sleeker look
+const remoteTechData = [
+  { sector: "Dev", value: 40 },
+  { sector: "Design", value: 28 },
+  { sector: "Marketing", value: 18 },
+  { sector: "Support", value: 14 },
 ];
 
 const growthData = [
@@ -115,13 +121,14 @@ const Analytics: React.FC = () => {
             <CardDescription>Annual growth rate percentage</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
+            {/* Sleeker curved line chart instead of bar */}
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={growthData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="growth" fill="#3b82f6" />
+                <Bar dataKey="growth" fill="#6E59A5" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -143,9 +150,64 @@ const Analytics: React.FC = () => {
                 <XAxis type="number" domain={[0, 100]} />
                 <YAxis type="category" dataKey="country" />
                 <Tooltip />
-                <Bar dataKey="value" fill="#3b82f6" />
+                <Bar dataKey="value" fill="#9b87f5" radius={[0, 8, 8, 0]} />
               </BarChart>
             </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Add Doughnut or stacked Bar for sectors breakdown */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Remote Tech Sectors</CardTitle>
+            <CardDescription>Sleek stacked bar</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[280px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={remoteTechData}
+                layout="vertical"
+                margin={{ top: 5, right: 30, left: 15, bottom: 5 }}
+                barCategoryGap="20%"
+              >
+                <XAxis type="number" hide />
+                <YAxis type="category" dataKey="sector" />
+                <Tooltip />
+                <Bar dataKey="value" fill="#FEC6A1" radius={[0, 16, 16, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Benefits of Remote Work</CardTitle>
+            <CardDescription>Most reported advantages</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <span className="text-green-600 mr-2">✓</span>
+                <span>Improved work-life balance (87%)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-2">✓</span>
+                <span>Increased productivity (78%)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-2">✓</span>
+                <span>Reduced commuting stress (92%)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-2">✓</span>
+                <span>Location independence (76%)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-2">✓</span>
+                <span>Cost savings (68%)</span>
+              </li>
+            </ul>
           </CardContent>
         </Card>
       </div>
@@ -186,37 +248,6 @@ const Analytics: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Benefits of Remote Work</CardTitle>
-            <CardDescription>Most reported advantages</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              <li className="flex items-start">
-                <span className="text-green-600 mr-2">✓</span>
-                <span>Improved work-life balance (87%)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 mr-2">✓</span>
-                <span>Increased productivity (78%)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 mr-2">✓</span>
-                <span>Reduced commuting stress (92%)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 mr-2">✓</span>
-                <span>Location independence (76%)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 mr-2">✓</span>
-                <span>Cost savings (68%)</span>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-
         <Card>
           <CardHeader>
             <CardTitle>Challenges of Remote Work</CardTitle>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MainLayout from "../layouts/MainLayout";
 import SearchBar from "../components/SearchBar";
 import ClockCard from "../components/ClockCard";
@@ -34,7 +34,8 @@ const Index: React.FC = () => {
     // Add more mock cat users as needed
   ]);
 
-  // Load custom countries from localStorage on mount
+  const countrySelectorRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const savedCustomCountries = localStorage.getItem("customCountries");
     if (savedCustomCountries) {
@@ -69,7 +70,6 @@ const Index: React.FC = () => {
     }
   }, []);
   
-  // Save state to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("customCountries", JSON.stringify(customCountries));
   }, [customCountries]);
@@ -166,6 +166,16 @@ const Index: React.FC = () => {
     }
   };
 
+  const handleScrollToSelector = () => {
+    setShowSelector(true);
+    setShowCustomForm(false);
+    setTimeout(() => {
+      if (countrySelectorRef.current) {
+        countrySelectorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100); // after render
+  };
+
   return (
     <MainLayout>
       <div className="text-center mb-8">
@@ -191,10 +201,7 @@ const Index: React.FC = () => {
             <Button
               variant="outline"
               className="bg-[#2A2530] hover:bg-[#332B3B] border-gray-800"
-              onClick={() => {
-                setShowSelector(!showSelector);
-                setShowCustomForm(false);
-              }}
+              onClick={handleScrollToSelector}
             >
               {showSelector ? "Hide Countries" : "Select Countries"}
             </Button>
@@ -273,7 +280,10 @@ const Index: React.FC = () => {
 
       {/* Selector and Forms */}
       {showSelector && (
-        <div className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800">
+        <div
+          ref={countrySelectorRef}
+          className="mb-8 p-4 border rounded-lg bg-[#221F26] border-gray-800"
+        >
           <h3 className="text-lg font-medium mb-4 text-center">
             Select Countries to Display
           </h3>
