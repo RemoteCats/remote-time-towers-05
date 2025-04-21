@@ -68,40 +68,40 @@ const WellnessReminder = () => {
   };
 
   return (
-    <div className="relative">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute -right-2 -top-2 z-10 h-8 w-8 rounded-full bg-gray-900/50"
-        onClick={() => setIsVisible(false)}
-      >
-        <X className="h-4 w-4" />
-      </Button>
-      
-      <Carousel className="w-full">
+    <div className="bg-black/60 backdrop-blur-md rounded-lg border border-gray-800 shadow-lg p-3">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-lg font-semibold text-[#999266] flex items-center gap-2">
+          Wellness
+        </span>
+        <Button
+          size="icon"
+          variant="ghost"
+          className="h-7 w-7 bg-gray-900/50"
+          onClick={() => setIsVisible(false)}
+        >
+          <X className="h-4 w-4" />
+        </Button>
+      </div>
+      <Carousel className="">
         <CarouselContent>
           {reminders.map((reminder, index) => (
-            <CarouselItem key={reminder.type}>
-              <div className="p-1">
-                <div className="flex items-center gap-4 p-3 rounded-lg bg-gray-800/50">
-                  <div className="text-gray-400">
-                    {getReminderIcon(reminder.type)}
-                  </div>
-                  <div className="flex-1">
-                    <Input
-                      type="number"
-                      min="1"
-                      max="240"
-                      value={reminder.interval}
-                      onChange={(e) => {
-                        const newReminders = [...reminders];
-                        newReminders[index].interval = parseInt(e.target.value);
-                        setReminders(newReminders);
-                      }}
-                      className="w-20 bg-gray-700 border-gray-600 text-gray-200"
-                    />
-                    <span className="ml-2 text-gray-400">minutes</span>
-                  </div>
+            <CarouselItem key={reminder.type} className="">
+              <div className="px-1">
+                <div className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/60">
+                  <div className="text-gray-400">{getReminderIcon(reminder.type)}</div>
+                  <Input
+                    type="number"
+                    min="1"
+                    max="240"
+                    value={reminder.interval}
+                    onChange={(e) => {
+                      const newReminders = [...reminders];
+                      newReminders[index].interval = parseInt(e.target.value);
+                      setReminders(newReminders);
+                    }}
+                    className="w-14 bg-gray-700 border-gray-600 text-gray-200 text-xs"
+                  />
+                  <span className="ml-2 text-gray-400 text-xs">min</span>
                   <Button
                     variant={reminder.enabled ? "default" : "outline"}
                     onClick={() => {
@@ -109,13 +109,9 @@ const WellnessReminder = () => {
                       newReminders[index].enabled = !reminder.enabled;
                       setReminders(newReminders);
                     }}
-                    className={`${
-                      reminder.enabled 
-                        ? 'bg-gray-700 hover:bg-gray-600' 
-                        : 'border-gray-700 text-gray-400 hover:bg-gray-800'
-                    } transition-all animate-soft-blink`}
+                    className={`h-8 px-2 py-1 text-xs rounded ${reminder.enabled ? 'bg-[#999266]/20 text-[#999266]' : 'border-[#999266]/40 text-gray-400'} transition-all`}
                   >
-                    {reminder.enabled ? 'Enabled' : 'Disabled'}
+                    {reminder.enabled ? 'On' : 'Off'}
                   </Button>
                 </div>
               </div>

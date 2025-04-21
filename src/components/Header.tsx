@@ -9,10 +9,10 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import AuthButton from "./AuthButton";
-import ThemeSettingsDropdown from "./ThemeSettingsDropdown";
+// import ThemeSettingsDropdown from "./ThemeSettingsDropdown"; // Removed theme toggle
 
 interface HeaderProps {
-  onBackgroundChange: (background: string) => void;
+  onBackgroundChange?: (background: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
@@ -61,12 +61,15 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
                     Profile
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/auth" className="text-[#999266] hover:text-black hover:bg-[#999266]">
+                    Sign In / Up
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            
             {/* BackgroundSelector removed */}
-
-            <ThemeSettingsDropdown />
+            {/* ThemeSettingsDropdown removed */}
             <AuthButton />
           </div>
         </div>
