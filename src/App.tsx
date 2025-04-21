@@ -12,6 +12,8 @@ import Tools from "./pages/Tools";
 import RCDeals from "./pages/RCDeals";
 import Analytics from "./pages/Analytics";
 import MusicPlayer from "./components/MusicPlayer";
+import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 
 // Create a new QueryClient instance outside of the component
 const queryClient = new QueryClient();
@@ -33,6 +35,8 @@ const App = () => {
                 <Route path="/tools" element={<Tools />} />
                 <Route path="/rc-deals" element={<RCDeals />} />
                 <Route path="/analytics" element={<Analytics />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </TooltipProvider>

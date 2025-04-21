@@ -9,6 +9,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import AuthButton from "./AuthButton";
+import ThemeSettingsDropdown from "./ThemeSettingsDropdown";
 
 interface HeaderProps {
   onBackgroundChange: (background: string) => void;
@@ -55,12 +56,17 @@ const Header: React.FC<HeaderProps> = ({ onBackgroundChange }) => {
                     RC Deals
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="text-[#999266] hover:text-black hover:bg-[#999266]">
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             
             {/* BackgroundSelector removed */}
 
-            {/* ThemeDropdown removed */}
+            <ThemeSettingsDropdown />
             <AuthButton />
           </div>
         </div>
